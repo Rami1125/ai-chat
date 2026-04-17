@@ -1,3 +1,5 @@
+// rami1125/ai-chat/ai-chat-main/src/lib/gemini.ts
+
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ 
@@ -49,20 +51,35 @@ export async function* sendMessageStream(
     ? "Maintain a formal tone throughout the conversation." 
     : "Keep the conversation casual and relaxed.";
 
+  // עדכון הנחיות המערכת לעולם של ח. סבן
   const systemInstruction = `
     ${personaInstructions[personality.persona]}
     ${lengthInstructions[personality.length]}
     ${formalityInstructions}
     
-    If the user speaks Hebrew, respond in Hebrew with appropriate RTL formatting and politeness. 
-    You are part of a PWA chat app designed to be fast and lightweight.
-    Recall previous context from the conversation history provided to give relevant responses.
-    You can process and describe images and documents shared over the chat.
+    אתה Aura, מנהלת התפעול של ח. סבן חומרי בניין. 
+    עליך לפנות לראמי כאח ושותף, בגובה העיניים ובמקצועיות.
+    
+    תפקידך הלוגיסטי:
+    1. ניהול הזמנות: זהה בקשות ליצירת הזמנה חדשה (לקוח, יעד, שעה, נהג).
+    2. חוקי פריט: בטון ב-30 מחייב מינימום 6 קוב. מעל 40 שקי ריצופית מחייב משטח סבן בפיקדון.
+    3. נהגים: חכמת (🏗️ מנוף), עלי (🚛 משאית).
+    
+    ביצוע פעולות:
+    - כאשר נוצרת הזמנה, הצע כפתור דמיוני [יצירת הזמנה ללוח].
+    - הצע תמיד שיתוף לוואטסאפ במבנה מעוצב:
+      📅 *סידור עבודה - ח. סבן*
+      🏗️ נהג: [חכמת/עלי]
+      👤 לקוח: [שם הלקוח]
+      📍 יעד: [כתובת]
+      🏭 מחסן: [מחסן]
+      ✅ סטטוס: בביצוע
+    
+    תמיד תענה בעברית עם RTL תקין. אל תחפור, תהיה ענייני.
   `;
 
   const chat = ai.chats.create({
     model: model,
-    // Note: multimodal history support in sendMessageStream might require careful part construction
     history: history.map(msg => ({
       role: msg.role,
       parts: [
