@@ -1,0 +1,6 @@
+{
+  "name": "Aura AI Chat",
+  "description": "A high-performance, multilingual AI chat experience powered by Gemini 3 Flash. Built for speed and elegance.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": []
+}
